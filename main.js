@@ -138,7 +138,15 @@ function editarTarea(id) {
 }
 
 function borrarTarea(id) {
-  prueba.splice(id, 1)
+  let index;
+
+ for(i=0; i<prueba.length; i++) {
+  if(id == prueba[i].id){
+    index = i;
+  }
+ }
+
+  prueba.splice(index, 1)
 
   imprimirInfo()
 }
