@@ -78,11 +78,11 @@ function imprimirInfo() {
                   </h1>
                   <button
                     type="button"
-                    class="btn-close"
+                    class="btn btn-success"
                     data-bs-dismiss="modal"
                     aria-label="Close"
                     onclick="actualizarTarea(${element.id})"
-                  ></button>
+                  >Guardar</button>
                 </div>
                 <div class="modal-body">
                   <div class="mb-3">
@@ -113,13 +113,7 @@ function imprimirInfo() {
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                   
-                    data-bs-dimiss="modal " aria-label="Close">
-                    Actualizar
-                  </button>
+
                 </div>
               </div>
             </div>
