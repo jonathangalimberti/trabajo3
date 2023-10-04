@@ -2,13 +2,19 @@
 
 const titulo = document.getElementById("titulo")
 const tarea = document.getElementById("descripcion")
+const imprimeTitulo = document.getElementById("card-tareas")
 
 //funcion para extraer informacion//
-let prueba = []
+let listaDeTareas = [];
 let index;
+let jsonlistaDeTareas
+// let jsonMemoria = localStorage.getItem('guardado')
+// let memoriaLocal 
+let guardado = JSON.parse( localStorage.getItem('guardado'))
 
 function extraerInfo() {
-  prueba.push(new Tarea(id = prueba.length, titulo.value, tarea.value))
+  listaDeTareas.push(new Tarea(id = listaDeTareas.length, titulo.value, tarea.value))
+  localStorage.setItem('guardado', JSON.stringify(listaDeTareas))
 
   titulo.value = ""
   tarea.value = ""
@@ -24,13 +30,17 @@ class Tarea {
 }
 
 //secciones donde se imprime informacion//
+function inicializarMemoria(){
 
-const imprimeTitulo = document.getElementById("card-tareas")
+  listaDeTareas = [...guardado]
+}
+
+inicializarMemoria()
 
 imprimirInfo()
 
 function imprimirInfo() {
-  if (prueba.length == 0) {
+  if (listaDeTareas.length == 0) {
 
     imprimeTitulo.innerHTML = ` <div class="card-header">
          <h3 class="card-title" >Agregue una tarea</h3>
@@ -38,7 +48,7 @@ function imprimirInfo() {
   } else {
     imprimeTitulo.innerHTML = ""
   }
-  prueba.forEach((element) => {
+  listaDeTareas.forEach((element) => {
     imprimeTitulo.innerHTML += ` <div class="card-header">
             <h3 class="card-title" >${element.titulo}</h3>
           </div>
@@ -127,21 +137,21 @@ function editarTarea(id) {
   const tituloEditar = document.getElementById("tituloEditar")
   const tareaEditar = document.getElementById("descripcionEditar")
   let arrayId = parseInt(id)
-  tituloEditar.value = prueba[arrayId].titulo
-  tareaEditar.value = prueba[arrayId].tarea
+  tituloEditar.value = listaDeTareas[arrayId].titulo
+  tareaEditar.value = listaDeTareas[arrayId].tarea
 }
 
 function borrarTarea(id) {
   let index;
 
- for(i=0; i<prueba.length; i++) {
-  if(id == prueba[i].id){
+ for(i=0; i<listaDeTareas.length; i++) {
+  if(id == listaDeTareas[i].id){
     index = i;
   }
  }
-
-  prueba.splice(index, 1)
-
+  listaDeTareas.splice(index, 1)
+  guardado.splice(index, 1)
+  localStorage.setItem('guardado', JSON.stringify(listaDeTareas))
   imprimirInfo()
 }
 
@@ -150,8 +160,10 @@ function actualizarTarea(id){
   const tareaEditar = document.getElementById("descripcionEditar")
   let arrayId = parseInt(id)
 
-  prueba[arrayId].titulo = tituloEditar.value
-  prueba[arrayId].tarea = tareaEditar.value
+  listaDeTareas[arrayId].titulo = tituloEditar.value
+  listaDeTareas[arrayId].tarea = tareaEditar.value
+  localStorage.setItem('guardado', JSON.stringify(listaDeTareas))
 
   imprimirInfo()
 }
+
